@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RENATO BALIEIRO | Engenharia de Software</title>
+  
+  <!-- Fontes Google -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&family=Fira+Code:wght@500;700&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --bg-main: #0c0f12;
+      --card-bg: #14181d;
+      --card-border: #222831;
+      --neon-lime: #a3e635;
+      --neon-hover: #84cc16;
+      --text-white: #ffffff;
+      --text-muted: #94a3b8;
+      --text-sub: #cbd5e1;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--bg-main);
+      color: var(--text-white);
+      display: flex;
+      justify-content: center;
+      padding: 16px 12px 40px 12px;
+      min-height: 100vh;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 480px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    /* Bento Cards General */
+    .bento-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .section-title {
+      color: var(--neon-lime);
+      font-size: 1.1rem;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Header Profile */
+    .header-card {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .profile-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      width: 100%;
+    }
+
+    .profile-avatar {
+      width: 85px;
+      height: 85px;
+      border-radius: 50%;
+      border: 3px solid var(--neon-lime);
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .profile-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .name-block {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .main-title {
+      font-size: 1.8rem;
+      font-weight: 900;
+      line-height: 1.05;
+      color: var(--neon-lime);
+      text-transform: uppercase;
+      letter-spacing: -0.5px;
+    }
+
+    .sub-title {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--text-white);
+      text-transform: uppercase;
+      margin-top: 4px;
+      letter-spacing: 0.5px;
+    }
+
+    /* Links Rapidos Verde Neon */
+    .btn-main-link {
+      background-color: var(--neon-lime);
+      color: #000000;
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 0.9rem;
+      padding: 12px 18px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      transition: all 0.2s ease;
+      text-transform: uppercase;
+    }
+
+    .btn-main-link:hover {
+      background-color: var(--neon-hover);
+      transform: translateY(-2px);
+    }
+
+    /* Contact Links Column */
+    .contact-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--text-sub);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 8px 12px;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .contact-item i {
+      color: var(--neon-lime);
+      font-size: 1rem;
+      width: 18px;
+    }
+
+    /* Tech Stack Badge Circle Style */
+    .tech-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .tech-badge {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .tech-circle {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      border: 2px solid var(--neon-lime);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      color: var(--text-white);
+      background: rgba(163, 230, 53, 0.05);
+    }
+
+    .tech-name {
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-align: center;
+    }
+
+    /* Accordion / Listas */
+    .accordion-item {
+      border-bottom: 1px solid var(--card-border);
+      padding: 10px 0;
+    }
+
+    .accordion-item:last-child {
+      border-bottom: none;
+    }
+
+    .accordion-header {
+      font-weight: 700;
+      font-size: 0.88rem;
+      color: var(--text-white);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .accordion-header i {
+      color: var(--neon-lime);
+    }
+
+    .accordion-body {
+      display: none;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-top: 6px;
+      line-height: 1.4;
+    }
+
+    .accordion-body.active {
+      display: block;
+    }
+
+    /* Game Box */
+    .game-container {
+      background: #080a0c;
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 10px;
+    }
+
+    .tic-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      width: 170px;
+      height: 170px;
+      margin: 10px 0;
+    }
+
+    .tic-cell {
+      background: #14181d;
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--neon-lime);
+      cursor: pointer;
+    }
+
+    /* Media Widgets */
+    .media-card {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(255, 255, 255, 0.03);
+      padding: 10px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .media-img {
+      width: 48px;
+      height: 48px;
+      border-radius: 8px;
+      background: var(--neon-lime);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #000;
+      font-size: 1.4rem;
+      flex-shrink: 0;
+    }
+
+    .media-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .media-title {
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: var(--text-white);
+    }
+
+    .media-sub {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    /* Whatsapp Button */
+    .btn-whatsapp {
+      background-color: var(--neon-lime);
+      color: #000;
+      text-decoration: none;
+      font-weight: 900;
+      font-size: 0.95rem;
+      padding: 16px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      text-transform: uppercase;
+      box-shadow: 0 4px 20px rgba(163, 230, 53, 0.25);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- HEADER / PERFIL -->
+    <div class="bento-card header-card">
+      <div class="profile-row">
+        <div class="profile-avatar">
+<img src="https://s11.aconvert.com/convert/p3r68-cdx67/jnl74-2h2kw.jpg" alt="Renato Balieiro">
+
+        </div>
+        <div class="name-block">
+          <h1 class="main-title">RENATO<br> BALIEIRO</h1>
+          <p class="sub-title">Engenharia de Software</p>
+        </div>
+      </div>
+      <p style="font-size: 0.82rem; color: var(--text-muted); line-height: 1.4;">
+        Estudante de Engenharia de Software e Sistemas de informação, apaixonado por tecnologia, filmes, esportes e boas conversas.
+      </p>
+    </div>
+
+    <!-- LINK PORTFÓLIO / CONTACTO -->
+    <a href="https://github.com" target="_blank" class="btn-main-link">
+      <span><i class="fa-solid fa-folder-open" style="margin-right: 8px;"></i> ESSE SOU EU.</span>
+      <i class="fa-solid fa-arrow-right"></i>
+    </a>
+
+    <!-- CONTACTOS E LOCALIZAÇÃO -->
+    <div class="bento-card">
+      <div class="contact-list">
+        <div class="contact-item">
+          <i class="fa-solid fa-location-dot"></i>
+          <span>Belém, PA - Brasil</span>
+        </div>
+        <a href="https://instagram.com" target="_blank" class="contact-item">
+          <i class="fa-brands fa-instagram"></i>
+          <span>@r_balieirox6</span>
+        </a>
+        <a href="https://github.com" target="_blank" class="contact-item">
+          <i class="fa-brands fa-github"></i>
+          <span>github.com/renatobalieiro</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- TECH STACK CIRCLES -->
+    <div class="bento-card">
+      <div class="section-title"><i class="fa-solid fa-code"></i> Habilidades</div>
+      <div class="tech-grid">
+        <div class="tech-badge">
+          <div class="tech-circle"><i class="fa-brands fa-js"></i></div>
+          <span class="tech-name">JS / TS</span>
+        </div>
+        <div class="tech-badge">
+          <div class="tech-circle"><i class="fa-brands fa-react"></i></div>
+          <span class="tech-name">React</span>
+        </div>
+        <div class="tech-badge">
+          <div class="tech-circle"><i class="fa-brands fa-python"></i></div>
+          <span class="tech-name">Python</span>
+        </div>
+        <div class="tech-badge">
+          <div class="tech-circle"><i class="fa-solid fa-network-wired"></i></div>
+          <span class="tech-name">Cisco</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROJETOS E JOGO INTERATIVO (GITHUB) -->
+    <div class="bento-card">
+      <div class="section-title"><i class="fa-brands fa-github"></i> GitHub & Projetos</div>
+      
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAcc(this)">
+          <span>🎮 Jogo da Velha (Tic-Tac-Toe IA)</span>
+          <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="accordion-body active">
+          <p style="margin-bottom: 8px;">Jogue uma partida rápida contra a Inteligência Artificial:</p>
+          <div class="game-container">
+            <span id="tic-status" style="font-size: 0.75rem; color: var(--neon-lime);">Sua vez! (Você é O)</span>
+            <div class="tic-grid">
+              <div class="tic-cell" onclick="playTic(0)"></div>
+              <div class="tic-cell" onclick="playTic(1)"></div>
+              <div class="tic-cell" onclick="playTic(2)"></div>
+              <div class="tic-cell" onclick="playTic(3)"></div>
+              <div class="tic-cell" onclick="playTic(4)"></div>
+              <div class="tic-cell" onclick="playTic(5)"></div>
+              <div class="tic-cell" onclick="playTic(6)"></div>
+              <div class="tic-cell" onclick="playTic(7)"></div>
+              <div class="tic-cell" onclick="playTic(8)"></div>
+            </div>
+            <button onclick="resetTic()" style="background: var(--neon-lime); border:none; padding:4px 10px; border-radius:6px; font-weight:700; cursor:pointer;">Reiniciar</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAcc(this)">
+          <span>💻 Repositórios & Códigos</span>
+          <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="accordion-body">
+          Projetos em Engenharia de Software, automações em Python, scripts de rede e APIs web desenvolvidas na faculdade.
+        </div>
+      </div>
+    </div>
+
+    <!-- ESTUDOS & CERTIFICAÇÕES -->
+    <div class="bento-card">
+      <div class="section-title"><i class="fa-solid fa-graduation-cap"></i> Formação & Certificados</div>
+      
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAcc(this)">
+          <span>Engenharia de Software</span>
+          <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="accordion-body">Graduação em andamento. Foco em desenvolvimento e arquitetura de sistemas.</div>
+      </div>
+
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAcc(this)">
+          <span>Técnico em Informática</span>
+          <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="accordion-body">Formação técnica profissionalizante em T.I e manutenção.</div>
+      </div>
+
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAcc(this)">
+          <span>Certificado Cisco Networking</span>
+          <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="accordion-body">Fundamentos de redes de computadores e roteamento,     IT Essentials,     Gerenciamento de Ameaças cibernéticas .</div>
+      </div>
+
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAcc(this)">
+          <span>Analista de Sistemas (Sebrae)</span>
+          <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="accordion-body">Análise de negócios e modelagem de processos de tecnologia.</div>
+      </div>
+    </div>
+
+    <!-- ENTRETERIMENTO: SPOTIFY & LETTERBOXD -->
+    <div class="bento-card">
+      <div class="section-title"><i class="fa-solid fa-headphones"></i> Entretenimento</div>
+      
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <div class="media-card">
+          <div class="media-img"><i class="fa-brands fa-spotify"></i></div>
+          <div class="media-info">
+            <span class="media-title">Infinita Highway</span>
+            <span class="media-sub">Engenheiros do Hawaii • Tocando no Spotify</span>
+          </div>
+        </div>
+
+        <div class="media-card">
+          <div class="media-img" style="background:#222; color:var(--neon-lime);"><i class="fa-solid fa-film"></i></div>
+          <div class="media-info">
+            <span class="media-title">FROM (Origem)</span>
+            <span class="media-sub">Assistindo no Letterboxd ★★★★★</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BOTAO WHATSAPP -->
+    <a href="https://wa.me/5591993007085?text=Ol%C3%A1%20Renato!%20Vim%20pelo%20seu%20site." target="_blank" class="btn-whatsapp">
+      <i class="fa-brands fa-whatsapp" style="font-size: 1.3rem;"></i>
+      <span>Falar no WhatsApp</span>
+    </a>
+
+  </div>
+
+  <script>
+    function toggleAcc(header) {
+      const body = header.nextElementSibling;
+      body.classList.toggle('active');
+    }
+
+    // Jogo da Velha
+    let board = ["", "", "", "", "", "", "", "", ""];
+    let active = true;
+
+    function playTic(i) {
+      if (board[i] !== "" || !active) return;
+      board[i] = "O";
+      renderTic();
+      if (checkWin("O")) {
+        document.getElementById("tic-status").innerText = "Você venceu! 🎉";
+        active = false;
+        return;
+      }
+      setTimeout(aiPlay, 300);
+    }
+
+    function aiPlay() {
+      let empty = board.map((v, idx) => v === "" ? idx : null).filter(v => v !== null);
+      if (empty.length > 0) {
+        let pick = empty[Math.floor(Math.random() * empty.length)];
+        board[pick] = "X";
+        renderTic();
+        if (checkWin("X")) {
+          document.getElementById("tic-status").innerText = "IA venceu! 🤖";
+          active = false;
+        }
+      }
+    }
+
+    function renderTic() {
+      const cells = document.querySelectorAll('.tic-cell');
+      cells.forEach((cell, idx) => {
+        cell.innerText = board[idx];
+      });
+    }
+
+    function checkWin(p) {
+      const wins = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+      return wins.some(w => w.every(i => board[i] === p));
+    }
+
+    function resetTic() {
+      board = ["", "", "", "", "", "", "", "", ""];
+      active = true;
+      document.getElementById("tic-status").innerText = "Sua vez! (Você é O)";
+      renderTic();
+    }
+  </script>
+</body>
+</html>
